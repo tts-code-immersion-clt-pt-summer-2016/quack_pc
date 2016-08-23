@@ -1,2 +1,8 @@
-<h1>Tweets#edit</h1>
-<p>Find me in app/views/tweets/edit.html.erb</p>
+<h1>Update your Tweet</h1>
+<%= form_for(@tweet) do |f| %>
+<%= render partial: "form", locals: {f: f} %>
+<div class="actions">
+  <%= f.submit "UPDATE IT"%>
+</div>
+<% end %>
+<%= link_to 'Back', tweets_path %>

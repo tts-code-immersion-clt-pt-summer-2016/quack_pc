@@ -4,6 +4,7 @@ class TweetsController < ApplicationController
 
   before_action :authenticate_user!
 
+
   def create
     @tweet = Tweet.new(tweet_params)
 
@@ -28,12 +29,29 @@ class TweetsController < ApplicationController
   end
 
   def show
+    # for demonstration purposes regarding different formats that rails can render
+    # respond_to do |format|
+    #   format.html
+      # format.pdf {render pdf: "#{@tweet}", template: 'tweets/show.html.erb'}
+      # format.csv {render :csv, template: 'tweets/show.csv'}
+    # end
   end
 
   def update
+    respond_to do |format|
+      if @tweet.update(tweet_params)
+        format.html {redirect_to tweet_path(@tweet.id), notice: 'Your Tweet has been updated'}
+      else
+        format.html {render :edit}
+      end
+    end
   end
 
   def destroy
+    @tweet.destroy
+    respond_to do |format|
+      format.html { redirect_to tweets_path, notice: "Tweet was deleted" }
+    end
   end
 
   private
