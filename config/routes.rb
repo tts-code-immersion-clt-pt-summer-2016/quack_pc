@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :profiles, only: [:index, :show]
   resources :relationships
 
-  resources :tweets
+  resources :tweets do
+   resource :like
+  end
 
   root 'tweets#index'
 
